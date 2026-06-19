@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="af">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Babylonstoren HR Diensportaal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Garamond', serif;
+            background-color: #ffffff;
+            color: #2c2c2c;
+            line-height: 1.7;
+            letter-spacing: 0.3px;
+        }
+
+        /* Header Styles */
+        header {
+            background: #1e3a5f;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+
+        
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .subheading {
+            font-size: 1.1em;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+
+        /* Grid Layout */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        /* Category Card Styles */
+        .category-card {
+            background-color: #ffffff;
+            border: 2px solid #e8e8e8;
+            border-radius: 15px;
+            padding: 30px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #1e3a5f 0%, #2d5a3d 100%);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .category-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .category-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(30, 58, 95, 0.15);
+            border-color: #1e3a5f;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        }
+
+        .category-card:active {
+            transform: translateY(-2px);
+        }
+
+        .card-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a3d 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+
+        .card-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #1e3a5f;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .card-examples {
+            font-size: 0.9em;
+            color: #666;
+            line-height: 1.8;
+            flex-grow: 1;
+        }
+
+        .card-examples ul {
+            list-style: none;
+            margin-top: 10px;
+        }
+
+        .card-examples li {
+            padding: 4px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .card-examples li:before {
+            content: "•";
+            color: #2d5a3d;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Info Section */
+        .info-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #1e3a5f;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+
+        .info-section h2 {
+            color: #1e3a5f;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        .info-section ol {
+            margin-left: 20px;
+            color: #555;
+        }
+
+        .info-section li {
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1e3a5f;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+        }
+
+        footer p {
+            opacity: 0.9;
+            font-size: 0.95em;
+        }
+
+        /* Tablet Responsiveness */
+        @media (max-width: 1024px) {
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .container {
+                padding: 40px 20px;
+            }
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .categories-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            header {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .subheading {
+                font-size: 1em;
+            }
+
+            .logo {
+                width: 60px;
+                height: 60px;
+            }
+
+            .card-title {
+                font-size: 1.15em;
+            }
+
+            .card-examples {
+                font-size: 0.85em;
+            }
+
+            .category-card {
+                padding: 25px;
+            }
+
+            .info-section {
+                padding: 25px;
+            }
+
+            .info-section h2 {
+                font-size: 1.3em;
+            }
+        }
+
+        /* Mobile Phone Responsiveness */
+        @media (max-width: 480px) {
+            header {
+                padding: 25px 15px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            .subheading {
+                font-size: 0.95em;
+            }
+
+            .container {
+                padding: 30px 15px;
+            }
+
+            .categories-grid {
+                gap: 15px;
+            }
+
+            .category-card {
+                padding: 20px;
+            }
+
+            .card-icon {
+                font-size: 2em;
+                height: 40px;
+            }
+
+            .card-title {
+                font-size: 1.1em;
+            }
+
+            .info-section {
+                padding: 20px;
+                border-left: 3px solid #1e3a5f;
+            }
+        }
+
+        /* Accessibility */
+        .category-card:focus {
+            outline: 2px solid #1e3a5f;
+            outline-offset: 2px;
+        }
+
+        .category-card:focus-visible {
+            outline: 2px solid #1e3a5f;
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo-container">
+                <div class="logo">
+  
+
+
+                </div>
+            </div>
+            <h1>WAARMEE KAN ONS HELP?</h1>
+            <p class="subheading">Kies die beste kategorie vir jou navraag sodat ons jou meer doeltreffend kan help.</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Categories Grid -->
+        <div class="categories-grid">
+            <!-- Category 1 -->
+            <div class="category-card" onclick="openWrikeForm()">
+                <div class="card-number">1</div>
+                <div class="card-icon">📋</div>
+                <h3 class="card-title">Algemene HR Navrae & Kommunikasie</h3>
+                <div class="card-examples">
+                    <ul>
+                        <li>HR Algemene versoeke</li>
+                        <li>BT-Whatsapp groepie kommunikasie</li>
+                        <li>Algemene Vergadering Navrae</li>
+                        <li>Kantien TV Inligting</li>
+                        <li>Ou werknemer navrae</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Category 2 -->
+            <div class="category-card" onclick="openWrikeForm()">
+                <div class="card-number">2</div>
+                <div class="card-icon">👥</div>
+                <h3 class="card-title">Werwing & Indiensneming</h3>
+                <div class="card-examples">
+                    <ul>
+                        <li>Advertensie vir nuwe rol op Breezy</li>
+                        <li>Werwing</li>
+                        <li>Onderhoud bystand</li>
+                        <li>Wamly screening video</li>
+                        <li>Psigometriese Toets</li>
+                        <li>Kriminele check</li>
+                        <li>Vakansiewerk Skool Kinders</li>
+                        <li>Probasie Tydperk Ondersteuning</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Category 3 -->
+            <div class="category-card" onclick="openWrikeForm()">
+                <div class="card-number">3</div>
+                <div class="card-icon">📄</div>
+                <h3 class="card-title">Kontrakte, Dokumente & Verifikasies</h3>
+                <div class="card-examples">
+                    <ul>
+                        <li>Addendum tot kontrak</li>
+                        <li>Afskrif van dienskontrak</li>
+                        <li>Werk bevestiging brief</li>
+                        <li>Verblyf bevestiging brief</li>
+                        <li>VISA letters</li>
+                        <li>ID sertifisering</li>
+                        <li>Kontrak navrae</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Category 4 -->
+            <div class="category-card" onclick="openWrikeForm()">
+                <div class="card-number">4</div>
+                <div class="card-icon">💰</div>
+                <h3 class="card-title">Vergoeding, Voordele & Finansiële Bystand</h3>
+                <div class="card-examples">
+                    <ul>
+                        <li>Afskrif van payslip</li>
+                        <li>Momentum navrae</li>
+                        <li>Lenings</li>
+                        <li>Studie Betaling Ooreenkoms</li>
+                        <li>Borgskappe</li>
+                        <li>Decline van inkomende borgskap verwante</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Category 5 -->
+            <div class="category-card" onclick="openWrikeForm()">
+                <div class="card-number">5</div>
+                <div class="card-icon">📊</div>
+                <h3 class="card-title">Verlof, Prestasie & Werknemerverhoudinge</h3>
+                <div class="card-examples">
+                    <ul>
+                        <li>Verlof navraag</li>
+                        <li>Prestasie Evaluasie</li>
+                        <li>Dissiplinêre Kwessies</li>
+                        <li>Ongeskikdheid</li>
+                        <li>Exit Interviews</li>
+                        <li>Beleid navrae</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Category 6 -->
+            <div class="category-card" onclick="openWrikeForm()">
+                <div class="card-number">6</div>
+                <div class="card-icon">❤️</div>
+                <h3 class="card-title">Welstand, Gesondheid & Veiligheid</h3>
+                <div class="card-examples">
+                    <ul>
+                        <li>Noodhulp tassie inhoud bestelling</li>
+                        <li>Werksbesering</li>
+                        <li>Late Report IOD</li>
+                        <li>Tande afspraak</li>
+                        <li>Agrivision Bril navraag</li>
+                        <li>Staan Sterk Navraag</li>
+                        <li>Welstand Werf Navraag</li>
+                        <li>Swemlesse vir kinders</li>
+                        <li>Eksterne Welstand Event Navraag</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Category 7 -->
+            <div class="category-card" onclick="openWrikeForm()">
+                <div class="card-number">7</div>
+                <div class="card-icon">🎓</div>
+                <h3 class="card-title">Opleiding & Ontwikkeling</h3>
+                <div class="card-examples">
+                    <ul>
+                        <li>Opleiding behoefte</li>
+                        <li>Hantering van Skills Training</li>
+                        <li>Interne Opleiding</li>
+                        <li>Oriëntering</li>
+                        <li>Inspirasie sessie aanbieder voorstel</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Category 8 -->
+            <div class="category-card" onclick="openWrikeForm()">
+                <div class="card-number">8</div>
+                <div class="card-icon">🤝</div>
+                <h3 class="card-title">Werknemer Betrokkenheid & Kultuur</h3>
+                <div class="card-examples">
+                    <ul>
+                        <li>Spanbou Navraag</li>
+                        <li>Werknemer Erkenning</li>
+                        <li>Jaareindfunksies</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Category 9 -->
+            <div class="category-card" onclick="openWrikeForm()">
+                <div class="card-number">9</div>
+                <div class="card-icon">🏢</div>
+                <h3 class="card-title">Administrasie & Fasiliteite Ondersteuning</h3>
+                <div class="card-examples">
+                    <ul>
+                        <li>Waltons Navraag</li>
+                        <li>Admin kantoor item bestelling</li>
+                        <li>Verversings vir vergaderings</li>
+                        <li>Lokaal vir opleiding</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Category 10 -->
+            <div class="category-card" onclick="openWrikeForm()">
+                <div class="card-number">10</div>
+                <div class="card-icon">⚖️</div>
+                <h3 class="card-title">Procare & Arbeidssake</h3>
+                <div class="card-examples">
+                    <ul>
+                        <li>Procare navraag</li>
+                        <li>Departement van Arbeid besoek</li>
+                    </ul>
+                </div>
+            </div>
+
+             <!-- Category 11 -->
+            <div class="category-card" onclick="openWrikeFormSister()">
+                <div class="card-number">11</div>
+                <div class="card-icon">🌳</div>
+                <h3 class="card-title">Sister Estate Visit</h3>
+                <div class="card-examples">
+                    <ul>
+                        <li>Sister Estate Visits</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Section -->
+        <div class="info-section">
+            <h2>HOE DIT WERK</h2>
+            <ol>
+                <li><strong>Kies die kategorie</strong> wat die beste by jou behoefte pas.</li>
+                <li><strong>Voltooi die vorm</strong> met soveel besonderhede as moontlik.</li>
+                <li><strong>Ons help so gou as moontlik</strong> - Ons HR-span sal jou navraag so gou moontlik hanteer.</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Footer -->
+ 
+
+   <script>
+        function openWrikeForm() {
+            window.open('https://www.wrike.com/forms/ABVMZKL7ESOKF22T/', '_blank');
+        }
+
+        function openWrikeFormSister() {
+            window.open('https://www.wrike.com/forms/ABVMZKIFPWY5P4XE/', '_blank');
+        }
+
+        // Keyboard accessibility
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.category-card');
+            cards.forEach(card => {
+                card.setAttribute('role', 'button');
+                card.setAttribute('tabindex', '0');
+                card.addEventListener('keypress', function(event) {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        openWrikeForm();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
