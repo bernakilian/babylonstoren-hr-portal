@@ -343,7 +343,7 @@
         <!-- Categories Grid -->
         <div class="categories-grid">
             <!-- Category 1 -->
-            <div class="category-card" onclick="openWrikeForm()">
+            <div class="category-card" onclick="openWrikeForm('https://www.wrike.com/forms/ABVMZKN67PQI3VIX/')">
                 <div class="card-number">1</div>
                 <div class="card-icon">📋</div>
                 <h3 class="card-title">Algemene HR Navrae & Kommunikasie</h3>
@@ -359,7 +359,7 @@
             </div>
 
             <!-- Category 2 -->
-            <div class="category-card" onclick="openWrikeForm()">
+            <div class="category-card" onclick="openWrikeForm('https://www.wrike.com/forms/ABVMZKNSQIBZRYMW/')">
                 <div class="card-number">2</div>
                 <div class="card-icon">👥</div>
                 <h3 class="card-title">Werwing & Indiensneming</h3>
@@ -378,7 +378,7 @@
             </div>
 
             <!-- Category 3 -->
-            <div class="category-card" onclick="openWrikeForm()">
+            <div class="category-card" onclick="openWrikeForm('https://www.wrike.com/forms/ABVMZKJODEYK5LZH/')">
                 <div class="card-number">3</div>
                 <div class="card-icon">📄</div>
                 <h3 class="card-title">Kontrakte, Dokumente & Verifikasies</h3>
@@ -396,7 +396,7 @@
             </div>
 
             <!-- Category 4 -->
-            <div class="category-card" onclick="openWrikeForm()">
+            <div class="category-card" onclick="openWrikeForm('https://www.wrike.com/forms/ABVMZKPUY77PUZ5R/')">
                 <div class="card-number">4</div>
                 <div class="card-icon">💰</div>
                 <h3 class="card-title">Vergoeding, Voordele & Finansiële Bystand</h3>
@@ -413,7 +413,7 @@
             </div>
 
             <!-- Category 5 -->
-            <div class="category-card" onclick="openWrikeForm()">
+            <div class="category-card" onclick="openWrikeForm('https://www.wrike.com/forms/ABVMZKMSONYDXG3P/')">
                 <div class="card-number">5</div>
                 <div class="card-icon">📊</div>
                 <h3 class="card-title">Verlof, Prestasie & Werknemerverhoudinge</h3>
@@ -430,7 +430,7 @@
             </div>
 
             <!-- Category 6 -->
-            <div class="category-card" onclick="openWrikeForm()">
+            <div class="category-card" onclick="openWrikeForm('https://www.wrike.com/forms/PLACEHOLDER6/')">
                 <div class="card-number">6</div>
                 <div class="card-icon">❤️</div>
                 <h3 class="card-title">Welstand, Gesondheid & Veiligheid</h3>
@@ -450,7 +450,7 @@
             </div>
 
             <!-- Category 7 -->
-            <div class="category-card" onclick="openWrikeForm()">
+            <div class="category-card" onclick="openWrikeForm('https://www.wrike.com/forms/PLACEHOLDER7/')">
                 <div class="card-number">7</div>
                 <div class="card-icon">🎓</div>
                 <h3 class="card-title">Opleiding & Ontwikkeling</h3>
@@ -466,7 +466,7 @@
             </div>
 
             <!-- Category 8 -->
-            <div class="category-card" onclick="openWrikeForm()">
+            <div class="category-card" onclick="openWrikeForm('https://www.wrike.com/forms/PLACEHOLDER8/')">
                 <div class="card-number">8</div>
                 <div class="card-icon">🤝</div>
                 <h3 class="card-title">Werknemer Betrokkenheid & Kultuur</h3>
@@ -480,7 +480,7 @@
             </div>
 
             <!-- Category 9 -->
-            <div class="category-card" onclick="openWrikeForm()">
+            <div class="category-card" onclick="openWrikeForm('https://www.wrike.com/forms/PLACEHOLDER9/')">
                 <div class="card-number">9</div>
                 <div class="card-icon">🏢</div>
                 <h3 class="card-title">Administrasie & Fasiliteite Ondersteuning</h3>
@@ -495,7 +495,7 @@
             </div>
 
             <!-- Category 10 -->
-            <div class="category-card" onclick="openWrikeForm()">
+            <div class="category-card" onclick="openWrikeForm('https://www.wrike.com/forms/PLACEHOLDER10/')">
                 <div class="card-number">10</div>
                 <div class="card-icon">⚖️</div>
                 <h3 class="card-title">Procare & Arbeidssake</h3>
@@ -508,7 +508,7 @@
             </div>
 
              <!-- Category 11 -->
-            <div class="category-card" onclick="openWrikeFormSister()">
+            <div class="category-card" onclick="openWrikeForm('https://www.wrike.com/forms/ABVMZKIFPWY5P4XE/')">
                 <div class="card-number">11</div>
                 <div class="card-icon">🌳</div>
                 <h3 class="card-title">Sister Estate Visit</h3>
@@ -535,12 +535,8 @@
  
 
    <script>
-        function openWrikeForm() {
-            window.open('https://www.wrike.com/forms/ABVMZKL7ESOKF22T/', '_blank');
-        }
-
-        function openWrikeFormSister() {
-            window.open('https://www.wrike.com/forms/ABVMZKIFPWY5P4XE/', '_blank');
+        function openWrikeForm(url) {
+            window.open(url, '_blank');
         }
 
         // Keyboard accessibility
@@ -552,7 +548,12 @@
                 card.addEventListener('keypress', function(event) {
                     if (event.key === 'Enter' || event.key === ' ') {
                         event.preventDefault();
-                        openWrikeForm();
+                        // Get the onclick attribute and extract the URL
+                        const onclickAttr = card.getAttribute('onclick');
+                        const urlMatch = onclickAttr.match(/'([^']+)'/);
+                        if (urlMatch) {
+                            openWrikeForm(urlMatch[1]);
+                        }
                     }
                 });
             });
